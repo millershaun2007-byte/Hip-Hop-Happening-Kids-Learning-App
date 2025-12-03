@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Groovy Hip Hop Happening Unicorn App - FREE BETA</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#9370DB">
+    <meta name="description" content="Fun learning app for kids with math, reading, writing and creative design - neurodivergent friendly">
+</head>
+<body>
+    <!-- COPPA Compliance Notice Modal -->
+    <div id="coppaModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 99999; display: flex; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 40px; border-radius: 20px; max-width: 600px; margin: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+            <h2 style="color: #9370DB; margin-bottom: 20px;">📝 Parent Notice</h2>
+            <p style="font-size: 1.1em; line-height: 1.6; margin-bottom: 15px;">
+                <strong>Welcome!</strong> This app is designed for children and complies with COPPA (Children's Online Privacy Protection Act).
+            </p>
+            <p style="font-size: 1em; line-height: 1.6; margin-bottom: 15px;">
+                <strong>Data Collection:</strong> This app stores learning progress and settings ONLY on your device. No personal information is collected or transmitted to any server.
+            </p>
+            <p style="font-size: 1em; line-height: 1.6; margin-bottom: 15px;">
+                <strong>Parental Consent:</strong> By clicking "I Agree" below, you confirm you are a parent or guardian giving permission for your child to use this app.
+            </p>
+            <p style="font-size: 0.9em; line-height: 1.6; margin-bottom: 20px;">
+                Review our <a href="#" onclick="showPrivacyPolicy(); return false;" style="color: #9370DB; text-decoration: underline;">Privacy Policy</a> and 
+                <a href="#" onclick="showTermsOfService(); return false;" style="color: #9370DB; text-decoration: underline;">Terms of Service</a>.
+            </p>
+            <div style="text-align: center;">
+                <button onclick="acceptCOPPA()" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 15px 40px; border-radius: 10px; font-size: 1.1em; cursor: pointer; font-weight: bold;">
+                    I Agree - Continue to App
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parent Gate Modal -->
+    <div id="parentGate" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 99998; display: flex; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 40px; border-radius: 20px; max-width: 500px; margin: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+            <h2 style="color: #9370DB; margin-bottom: 20px;">🔒 Parent Verification</h2>
+            <p style="font-size: 1.1em; margin-bottom: 20px;">
+                To protect your child, please solve this math problem to access settings:
+            </p>
+            <div style="text-align: center; margin: 30px 0;">
+                <p id="parentMathQuestion" style="font-size: 2em; font-weight: bold; color: #333;"></p>
+                <input type="number" id="parentMathAnswer" style="font-size: 1.5em; padding: 10px; width: 150px; border: 3px solid #9370DB; border-radius: 10px; text-align: center; margin-top: 15px;" placeholder="?">
+            </div>
+            <div style="text-align: center; display: flex; gap: 15px; justify-content: center;">
+                <button onclick="checkParentGate()" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 1.1em; cursor: pointer; font-weight: bold;">
+                    Submit
+                </button>
+                <button onclick="closeParentGate()" style="background: #ccc; color: #333; border: none; padding: 15px 30px; border-radius: 10px; font-size: 1.1em; cursor: pointer; font-weight: bold;">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Section -->
+    <section id="privacyPolicy" class="content-section" style="display: none;">
+        <div style="max-width: 800px; margin: 0 auto; padding: 40px 20px;">
+            <h2>📜 Privacy Policy</h2>
+            <p style="font-size: 0.9em; color: #666; margin-bottom: 30px;">Last Updated: December 2, 2025</p>
+            
+            <h3>1. Information We Collect</h3>
+            <p>This app collects minimal information and stores it ONLY on your device:</p>
+            <ul>
+                <li>Learning progress (stars earned, activities completed)</li>
+                <li>User preferences (font size, color themes, sound settings)</li>
+                <li>Saved content (creature designs, stories, artwork)</li>
+            </ul>
+            
+            <h3>2. How We Use Information</h3>
+            <p>All data is stored locally using your browser's localStorage. We do NOT:</p>
+            <ul>
+                <li>Collect personal information (names, emails, addresses)</li>
+                <li>Transmit data to external servers</li>
+                <li>Use cookies or tracking technologies</li>
+                <li>Share information with third parties</li>
+                <li>Display advertisements</li>
+            </ul>
+            
+            <h3>3. COPPA Compliance</h3>
+            <p>This app complies with the Children's Online Privacy Protection Act (COPPA). We do not knowingly collect personal information from children under 13. All data remains on the user's device.</p>
+            
+            <h3>4. Data Security</h3>
+            <p>Since all data is stored locally on your device, you control the data. Clearing your browser data will delete all app information.</p>
+            
+            <h3>5. Parental Rights</h3>
+            <p>Parents have the right to review and delete their child's data at any time by clearing the app's data through the device settings.</p>
+            
+            <h3>6. Contact Us</h3>
+            <p>If you have questions about this privacy policy, contact us at: <a href="mailto:privacy@kidslearningapp.com">privacy@kidslearningapp.com</a></p>
+            
+            <button onclick="goHome()" class="action-btn" style="margin-top: 30px;">← Back to App</button>
+        </div>
+    </section>
+
+    <!-- Terms of Service Section -->
+    <section id="termsOfService" class="content-section" style="display: none;">
+        <div style="max-width: 800px; margin: 0 auto; padding: 40px 20px;">
+            <h2>📜 Terms of Service</h2>
+            <p style="font-size: 0.9em; color: #666; margin-bottom: 30px;">Last Updated: December 2, 2025</p>
+            
+            <h3>1. Acceptance of Terms</h3>
+            <p>By using this app, you agree to these Terms of Service. If you do not agree, please do not use the app.</p>
+            
+            <h3>2. Educational Purpose</h3>
+            <p>This app is designed as an educational tool to support learning. It is NOT:</p>
+            <ul>
+                <li>A substitute for professional educational assessment</li>
+                <li>Medical or therapeutic advice</li>
+                <li>A guaranteed learning outcome</li>
+            </ul>
+            
+            <h3>3. Parental Supervision</h3>
+            <p>Parents and guardians are responsible for supervising their child's use of this app and ensuring age-appropriate content access.</p>
+            
+            <h3>4. Beta Testing</h3>
+            <p>This is a BETA version. Features may change, and the app may contain bugs. Use at your own discretion.</p>
+            
+            <h3>5. User Conduct</h3>
+            <p>Users agree to:</p>
+            <ul>
+                <li>Use the app for personal, non-commercial purposes</li>
+                <li>Not attempt to reverse-engineer or modify the app</li>
+                <li>Not share inappropriate content through app features</li>
+            </ul>
+            
+            <h3>6. Intellectual Property</h3>
+            <p>All content, design, and code in this app are protected by copyright. User-created content (stories, artwork) belongs to the user.</p>
+            
+            <h3>7. Limitation of Liability</h3>
+            <p>This app is provided "as is" without warranties. We are not liable for any damages arising from app use.</p>
+            
+            <h3>8. Changes to Terms</h3>
+            <p>We reserve the right to modify these terms. Continued use after changes constitutes acceptance.</p>
+            
+            <h3>9. Contact</h3>
+            <p>Questions about these terms? Contact: <a href="mailto:legal@kidslearningapp.com">legal@kidslearningapp.com</a></p>
+            
+            <button onclick="goHome()" class="action-btn" style="margin-top: 30px;">← Back to App</button>
+        </div>
+    </section>
+
+    <!-- Beta Notice Banner -->
+    <div id="betaBanner" style="
+        background: linear-gradient(135deg, #FF6B6B, #FFD93D);
+        color: #333;
+        text-align: center;
+        padding: 15px;
+        font-weight: bold;
+        font-size: 1.1em;
+        position: sticky;
+        top: 0;
+        z-index: 9999;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    ">
+        <span style="flex: 1;">🎉 FREE BETA - Neurodivergent-Friendly Learning! 
+        <a href="#feedback" style="color: #fff; text-decoration: underline; margin-left: 10px;">Give Feedback</a></span>
+        <span id="breakReminder" style="background: rgba(255,255,255,0.3); padding: 8px 15px; border-radius: 10px; font-size: 0.9em;">⏱️ Remember to take breaks!</span>
+    </div>
+    <!-- Accessibility Controls Panel -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <button class="panel-toggle" id="accessibilityToggle" aria-label="Toggle Accessibility Options">
+            ⚙️ Accessibility
+        </button>
+        <div class="panel-content" id="panelContent">
+            <h3>Customize Your Experience</h3>
+            
+            <div class="control-group">
+                <label for="backgroundMusic">Background Music:</label>
+                <select id="backgroundMusic">
+                    <option value="off">Off</option>
+                    <option value="calm" selected>Calm & Peaceful</option>
+                    <option value="upbeat">Upbeat & Fun</option>
+                    <option value="focus">Focus Music</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="musicVolume">Music Volume:</label>
+                <input type="range" id="musicVolume" min="0" max="100" value="30">
+                <span id="volumeValue">30%</span>
+            </div>
+            
+            <div class="control-group">
+                <label for="fontSelect">Font Style:</label>
+                <select id="fontSelect">
+                    <option value="default">Default</option>
+                    <option value="dyslexic">Dyslexia-Friendly</option>
+                    <option value="comic">Comic Sans</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="fontSizeSlider">Text Size:</label>
+                <input type="range" id="fontSizeSlider" min="12" max="24" value="16">
+                <span id="fontSizeValue">16px</span>
+            </div>
+
+            <div class="control-group">
+                <label for="colorTheme">Color Theme:</label>
+                <select id="colorTheme">
+                    <option value="default">Colorful (Default)</option>
+                    <option value="high-contrast">High Contrast</option>
+                    <option value="soft">Soft Colors</option>
+                    <option value="dark">Dark Mode</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="reduceMotion">
+                    Reduce Animations
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="soundToggle" checked>
+                    Enable Sound Effects
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="focusMode">
+                    Focus Mode (Hide Distractions)
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label for="visualRewards">Celebration Style:</label>
+                <select id="visualRewards">
+                    <option value="full">Full Animations</option>
+                    <option value="simple">Simple (Less Stimulation)</option>
+                    <option value="none">Text Only</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="breakReminders" checked>
+                    Break Time Reminders
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <h1>🦄 Kids Learning Adventure 🦕</h1>
+        <div class="nav-buttons">
+            <button class="nav-btn" data-section="home">🏠 Home</button>
+            <button class="nav-btn" data-section="designer">🎨 Design Creatures</button>
+            <button class="nav-btn" data-section="math">🔢 Math Fun</button>
+            <button class="nav-btn" data-section="literacy">📚 Reading & Words</button>
+            <button class="nav-btn" data-section="writing">✍️ Creative Writing</button>
+            <button class="nav-btn" data-section="art">🖌️ Art Studio</button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="content-section active">
+            <div class="floating-particles" id="particles"></div>
+            <div class="welcome-screen">
+                <h2 class="animated-title">
+                    <span class="sparkle">✨</span> 
+                    <span class="title-word">Welcome</span> 
+                    <span class="title-word">to</span> 
+                    <span class="title-word">Your</span> 
+                    <span class="title-word">Magical</span> 
+                    <span class="title-word">Learning</span> 
+                    <span class="title-word">Kingdom!</span> 
+                    <span class="sparkle">🏰</span>
+                </h2>
+                <p class="large-text" style="font-size: 2em; margin: 20px 0;">🧙‍♂️ 👸 🐉 🦄 ⚔️ 📚 ✨</p>
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 15px; margin: 20px auto; max-width: 600px;">
+                    <p style="margin: 0; font-size: 1.1em;">🧠 <strong>Neurodivergent-Friendly!</strong> 🌈<br>
+                    Designed for ADHD, Autism, Dyslexia & all learning styles!</p>
+                </div>
+                <p class="large-text">Choose your magical adventure:</p>
+                
+                <div class="activity-cards">
+                    <div class="activity-card" data-goto="designer">
+                        <div class="card-icon" style="font-size: 3em;">
+                            <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Unicorn head -->
+                                <ellipse cx="50" cy="60" rx="25" ry="30" fill="#FFE4E1"/>
+                                <!-- Horn -->
+                                <polygon points="50,25 45,45 55,45" fill="#FFD700" stroke="#FFA500" stroke-width="1"/>
+                                <!-- Mane -->
+                                <path d="M 30,45 Q 25,50 30,55" fill="#FF69B4" opacity="0.8"/>
+                                <path d="M 35,40 Q 28,45 33,50" fill="#9370DB" opacity="0.8"/>
+                                <path d="M 70,45 Q 75,50 70,55" fill="#87CEEB" opacity="0.8"/>
+                                <path d="M 65,40 Q 72,45 67,50" fill="#FFB6C1" opacity="0.8"/>
+                                <!-- Eyes -->
+                                <circle cx="42" cy="58" r="3" fill="#000"/>
+                                <circle cx="58" cy="58" r="3" fill="#000"/>
+                                <circle cx="43" cy="57" r="1" fill="#FFF"/>
+                                <circle cx="59" cy="57" r="1" fill="#FFF"/>
+                                <!-- Nose -->
+                                <ellipse cx="50" cy="68" rx="4" ry="3" fill="#FFB6C1"/>
+                            </svg>
+                        </div>
+                        <h3>✨ Creature Designer</h3>
+                        <p>Create magical unicorns, beautiful princesses, and awesome dinosaurs!</p>
+                    </div>
+
+                    <div class="activity-card" data-goto="math">
+                        <div class="card-icon" style="font-size: 3em;">
+                            <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Wizard hat -->
+                                <path d="M 50,15 L 30,55 L 70,55 Z" fill="#4B0082" stroke="#FFD700" stroke-width="2"/>
+                                <ellipse cx="50" cy="55" rx="25" ry="5" fill="#4B0082" stroke="#FFD700" stroke-width="2"/>
+                                <!-- Stars on hat -->
+                                <polygon points="50,25 48,30 43,30 47,33 45,38 50,35 55,38 53,33 57,30 52,30" fill="#FFD700"/>
+                                <!-- Head -->
+                                <circle cx="50" cy="65" r="15" fill="#FFE4C4"/>
+                                <!-- Eyes -->
+                                <circle cx="45" cy="63" r="2" fill="#000"/>
+                                <circle cx="55" cy="63" r="2" fill="#000"/>
+                                <!-- Beard -->
+                                <path d="M 40,70 Q 50,78 60,70" fill="#D3D3D3"/>
+                                <path d="M 42,73 Q 50,80 58,73" fill="#D3D3D3"/>
+                                <!-- Magic numbers -->
+                                <text x="20" y="90" font-size="12" fill="#9370DB" font-weight="bold">123</text>
+                                <text x="62" y="90" font-size="12" fill="#FF69B4" font-weight="bold">+−×</text>
+                            </svg>
+                        </div>
+                        <h3>🎯 Wizard's Math Quest</h3>
+                        <p>Help the wizard solve magical math puzzles and unlock spells!</p>
+                    </div>
+
+                    <div class="activity-card" data-goto="literacy">
+                        <div class="card-icon" style="font-size: 3em;">
+                            <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Dragon body -->
+                                <ellipse cx="55" cy="65" rx="20" ry="18" fill="#32CD32" stroke="#228B22" stroke-width="2"/>
+                                <!-- Dragon head -->
+                                <ellipse cx="40" cy="50" rx="15" ry="13" fill="#32CD32" stroke="#228B22" stroke-width="2"/>
+                                <!-- Horns -->
+                                <polygon points="35,40 33,45 37,45" fill="#FFD700"/>
+                                <polygon points="45,40 43,45 47,45" fill="#FFD700"/>
+                                <!-- Eye -->
+                                <circle cx="38" cy="48" r="3" fill="#FFD700"/>
+                                <circle cx="38" cy="48" r="1.5" fill="#000"/>
+                                <!-- Nostril -->
+                                <circle cx="32" cy="53" r="1" fill="#000"/>
+                                <!-- Wings -->
+                                <path d="M 60,55 Q 75,45 70,65 Q 65,60 60,60" fill="#90EE90" stroke="#228B22" stroke-width="1.5"/>
+                                <path d="M 62,58 Q 72,50 68,63" fill="#32CD32" opacity="0.5"/>
+                                <!-- Spikes -->
+                                <polygon points="50,45 52,50 54,45" fill="#FFD700"/>
+                                <polygon points="55,48 57,53 59,48" fill="#FFD700"/>
+                                <polygon points="60,52 62,57 64,52" fill="#FFD700"/>
+                                <!-- Book -->
+                                <rect x="25" y="70" width="20" height="15" fill="#8B4513" stroke="#654321" stroke-width="1"/>
+                                <line x1="35" y1="70" x2="35" y2="85" stroke="#654321" stroke-width="1"/>
+                                <text x="28" y="80" font-size="8" fill="#FFD700" font-weight="bold">ABC</text>
+                            </svg>
+                        </div>
+                        <h3>🐲 Dragon's Library</h3>
+                        <p>Discover dragon stories, learn words, and unlock reading treasures!</p>
+                    </div>
+
+                    <div class="activity-card" data-goto="writing">
+                        <div class="card-icon" style="font-size: 3em;">
+                            <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Castle -->
+                                <rect x="30" y="50" width="40" height="35" fill="#A9A9A9" stroke="#696969" stroke-width="2"/>
+                                <!-- Towers -->
+                                <rect x="25" y="40" width="12" height="25" fill="#A9A9A9" stroke="#696969" stroke-width="1.5"/>
+                                <rect x="63" y="40" width="12" height="25" fill="#A9A9A9" stroke="#696969" stroke-width="1.5"/>
+                                <!-- Tower tops -->
+                                <polygon points="31,40 26,35 36,35" fill="#FF69B4"/>
+                                <polygon points="69,40 64,35 74,35" fill="#FF69B4"/>
+                                <!-- Flags -->
+                                <line x1="31" y1="35" x2="31" y2="25" stroke="#696969" stroke-width="1"/>
+                                <polygon points="31,25 31,30 38,27.5" fill="#FFD700"/>
+                                <line x1="69" y1="35" x2="69" y2="25" stroke="#696969" stroke-width="1"/>
+                                <polygon points="69,25 69,30 76,27.5" fill="#FFD700"/>
+                                <!-- Door -->
+                                <rect x="43" y="65" width="14" height="20" rx="7" fill="#654321"/>
+                                <!-- Windows -->
+                                <rect x="35" y="55" width="8" height="8" fill="#87CEEB"/>
+                                <rect x="57" y="55" width="8" height="8" fill="#87CEEB"/>
+                                <!-- Quill -->
+                                <line x1="65" y1="75" x2="75" y2="60" stroke="#8B4513" stroke-width="2"/>
+                                <path d="M 75,60 Q 78,58 76,55 Q 74,58 75,60" fill="#FFF" stroke="#000" stroke-width="0.5"/>
+                            </svg>
+                        </div>
+                        <h3>🏰 Royal Story Castle</h3>
+                        <p>Write magical tales about princesses, knights, and epic adventures!</p>
+                    </div>
+
+                    <div class="activity-card" data-goto="art">
+                        <div class="card-icon" style="font-size: 3em;">
+                            <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Palette -->
+                                <ellipse cx="55" cy="55" rx="35" ry="30" fill="#8B4513" stroke="#654321" stroke-width="2"/>
+                                <!-- Thumb hole -->
+                                <ellipse cx="72" cy="60" rx="10" ry="12" fill="#FFF" stroke="#654321" stroke-width="2"/>
+                                <!-- Paint colors -->
+                                <circle cx="40" cy="45" r="6" fill="#FF0000"/>
+                                <circle cx="55" cy="42" r="6" fill="#0000FF"/>
+                                <circle cx="45" cy="58" r="6" fill="#FFFF00"/>
+                                <circle cx="60" cy="55" r="6" fill="#00FF00"/>
+                                <circle cx="50" cy="70" r="6" fill="#FF69B4"/>
+                                <!-- Paintbrush -->
+                                <line x1="20" y1="80" x2="35" y2="65" stroke="#8B4513" stroke-width="3"/>
+                                <path d="M 35,65 Q 38,62 36,59 L 32,63 Z" fill="#A0522D" stroke="#654321" stroke-width="1"/>
+                                <path d="M 36,59 L 38,57 L 34,53 L 32,55 Z" fill="#4169E1"/>
+                            </svg>
+                        </div>
+                        <h3>🎨 Art Studio</h3>
+                        <p>Draw, color, and create amazing artwork with magical brushes!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Creature Designer Section -->
+        <section id="designer" class="content-section">
+            <h2>🎨 Magical Character Designer ✨</h2>
+            
+            <div class="designer-container">
+                <div class="creature-type-selector">
+                    <button class="type-btn active" data-creature="unicorn">🦄 Unicorn</button>
+                    <button class="type-btn" data-creature="dinosaur">🦕 Dinosaur</button>
+                    <button class="type-btn" data-creature="princess">👸 Princess</button>
+                </div>
+
+                <div class="design-workspace">
+                    <div class="canvas-area">
+                        <div id="creatureCanvas" class="creature-canvas">
+                            <!-- Creature will be built here -->
+                            <div class="creature-display" id="creatureDisplay">
+                                <p class="instruction-text">Choose colors and features to design your creature!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="design-controls">
+                        <h3>Customize Your Creature</h3>
+                        
+                        <div class="control-section">
+                            <h4>Body Color:</h4>
+                            <div class="color-picker">
+                                <button class="color-btn" data-part="body" data-color="#FF69B4" style="background-color: #FF69B4;"></button>
+                                <button class="color-btn" data-part="body" data-color="#9370DB" style="background-color: #9370DB;"></button>
+                                <button class="color-btn" data-part="body" data-color="#87CEEB" style="background-color: #87CEEB;"></button>
+                                <button class="color-btn" data-part="body" data-color="#98FB98" style="background-color: #98FB98;"></button>
+                                <button class="color-btn" data-part="body" data-color="#FFD700" style="background-color: #FFD700;"></button>
+                                <button class="color-btn" data-part="body" data-color="#FF6347" style="background-color: #FF6347;"></button>
+                            </div>
+                        </div>
+
+                        <div class="control-section">
+                            <h4>Mane/Spikes Color:</h4>
+                            <div class="color-picker">
+                                <button class="color-btn" data-part="mane" data-color="#FF1493" style="background-color: #FF1493;"></button>
+                                <button class="color-btn" data-part="mane" data-color="#4B0082" style="background-color: #4B0082;"></button>
+                                <button class="color-btn" data-part="mane" data-color="#00CED1" style="background-color: #00CED1;"></button>
+                                <button class="color-btn" data-part="mane" data-color="#32CD32" style="background-color: #32CD32;"></button>
+                                <button class="color-btn" data-part="mane" data-color="#FFA500" style="background-color: #FFA500;"></button>
+                                <button class="color-btn" data-part="mane" data-color="#DC143C" style="background-color: #DC143C;"></button>
+                            </div>
+                        </div>
+
+                        <div class="control-section">
+                            <h4>Horn/Tail Style:</h4>
+                            <div class="style-picker">
+                                <button class="style-btn" data-style="spiral">Spiral ✨</button>
+                                <button class="style-btn" data-style="straight">Straight 📏</button>
+                                <button class="style-btn" data-style="curved">Curved 🌙</button>
+                            </div>
+                        </div>
+
+                        <div class="control-section">
+                            <h4>Pattern:</h4>
+                            <div class="pattern-picker">
+                                <button class="pattern-btn" data-pattern="solid">Solid</button>
+                                <button class="pattern-btn" data-pattern="spots">Spots 🔴</button>
+                                <button class="pattern-btn" data-pattern="stripes">Stripes 〰️</button>
+                                <button class="pattern-btn" data-pattern="stars">Stars ⭐</button>
+                            </div>
+                        </div>
+
+                        <button class="action-btn save-btn" id="saveCreature">💾 Save My Creature</button>
+                        <button class="action-btn random-btn" id="randomCreature">🎲 Random Design</button>
+                    </div>
+                </div>
+
+                <div class="saved-creatures">
+                    <h3>My Saved Creatures</h3>
+                    <div id="savedCreaturesGrid" class="creatures-grid">
+                        <p class="empty-message">You haven't saved any creatures yet!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Math Section -->
+        <section id="math" class="content-section">
+            <h2>🧙‍♂️ Wizard's Math Quest 🔢</h2>
+            
+            <div class="activity-selector">
+                <button class="activity-btn" data-activity="counting">Counting</button>
+                <button class="activity-btn" data-activity="addition">Addition ➕</button>
+                <button class="activity-btn" data-activity="subtraction">Subtraction ➖</button>
+                <button class="activity-btn" data-activity="multiplication">Multiplication ✖️</button>
+                <button class="activity-btn" data-activity="division">Division ➗</button>
+                <button class="activity-btn" data-activity="word-problems">Story Problems 📖</button>
+                <button class="activity-btn" data-activity="comparing">Comparing ⚖️</button>
+                <button class="activity-btn" data-activity="patterns">Patterns 🔄</button>
+                <button class="activity-btn" data-activity="time">Time ⏰</button>
+                <button class="activity-btn" data-activity="money">Money 💰</button>
+            </div>
+
+            <div class="math-workspace">
+                <div id="mathActivity" class="activity-content">
+                    <p class="instruction-text">Choose an activity above to start learning!</p>
+                </div>
+
+                <div class="progress-display">
+                    <h3>Your Progress 🌟</h3>
+                    <div class="stars-earned">
+                        <span id="starsCount">0</span> stars earned today!
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="mathProgress" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Literacy Section -->
+        <section id="literacy" class="content-section">
+            <h2>🐉 Dragon's Library 📚</h2>
+            
+            <div class="activity-selector">
+                <button class="activity-btn" data-activity="letters">Letters 🔤</button>
+                <button class="activity-btn" data-activity="phonics">Phonics 🔊</button>
+                <button class="activity-btn" data-activity="spelling">Spelling 📝</button>
+                <button class="activity-btn" data-activity="vocabulary">Vocabulary 📖</button>
+                <button class="activity-btn" data-activity="sight-words">Sight Words 👁️</button>
+                <button class="activity-btn" data-activity="sentences">Sentences ✏️</button>
+                <button class="activity-btn" data-activity="rhyming">Rhyming 🎵</button>
+                <button class="activity-btn" data-activity="reading">Reading 📚</button>
+            </div>
+
+            <div class="literacy-workspace">
+                <div id="literacyActivity" class="activity-content">
+                    <p class="instruction-text">Choose an activity above to start learning!</p>
+                </div>
+
+                <div class="progress-display">
+                    <h3>Your Progress 🌟</h3>
+                    <div class="stars-earned">
+                        <span id="literacyStars">0</span> stars earned today!
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="literacyProgress" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Creative Writing Section -->
+        <section id="writing" class="content-section">
+            <h2>👸 Royal Story Castle ✍️</h2>
+            
+            <div class="writing-container">
+                <div class="prompt-section">
+                    <h3>Story Starters</h3>
+                    <div id="storyPrompt" class="story-prompt">
+                        Click "New Prompt" to get a fun story idea!
+                    </div>
+                    <button class="action-btn" id="newPrompt">🎲 New Prompt</button>
+                </div>
+
+                <div class="writing-area">
+                    <div class="writing-tools">
+                        <h3>Your Story Title:</h3>
+                        <input type="text" id="storyTitle" class="story-title-input" placeholder="My Amazing Story">
+                        
+                        <div class="tool-buttons">
+                            <button class="tool-btn" id="boldBtn"><strong>B</strong></button>
+                            <button class="tool-btn" id="italicBtn"><em>I</em></button>
+                            <button class="tool-btn" id="emojiBtn">😊</button>
+                        </div>
+                    </div>
+
+                    <textarea id="storyText" class="story-textarea" placeholder="Start writing your story here..."></textarea>
+
+                    <div class="word-bank">
+                        <h4>Word Bank 💡</h4>
+                        <div id="wordBankButtons" class="word-buttons">
+                            <!-- Words will be added based on prompt -->
+                        </div>
+                    </div>
+
+                    <div class="story-actions">
+                        <button class="action-btn" id="saveStory">💾 Save Story</button>
+                        <button class="action-btn" id="clearStory">🗑️ New Story</button>
+                        <div class="word-count">Words: <span id="wordCount">0</span></div>
+                    </div>
+                </div>
+
+                <div class="saved-stories">
+                    <h3>My Stories 📚</h3>
+                    <div id="savedStoriesGrid" class="stories-grid">
+                        <p class="empty-message">You haven't saved any stories yet!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Art Studio Section -->
+        <section id="art" class="content-section">
+            <h2>🎨 Art Studio 🖌️</h2>
+            
+            <div class="art-container">
+                <div class="art-tools">
+                    <h3>Drawing Tools</h3>
+                    <div class="tool-group">
+                        <label>Brush Size:</label>
+                        <input type="range" id="brushSize" min="1" max="20" value="5">
+                        <span id="brushSizeValue">5</span>px
+                    </div>
+                    
+                    <div class="tool-group">
+                        <label>Color:</label>
+                        <div class="color-palette">
+                            <button class="color-btn" data-color="#FF0000" style="background: #FF0000;"></button>
+                            <button class="color-btn" data-color="#FF69B4" style="background: #FF69B4;"></button>
+                            <button class="color-btn" data-color="#FFD700" style="background: #FFD700;"></button>
+                            <button class="color-btn" data-color="#00FF00" style="background: #00FF00;"></button>
+                            <button class="color-btn" data-color="#87CEEB" style="background: #87CEEB;"></button>
+                            <button class="color-btn" data-color="#0000FF" style="background: #0000FF;"></button>
+                            <button class="color-btn" data-color="#9370DB" style="background: #9370DB;"></button>
+                            <button class="color-btn" data-color="#000000" style="background: #000000;"></button>
+                            <button class="color-btn" data-color="#FFFFFF" style="background: #FFFFFF; border: 2px solid #000;"></button>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-group">
+                        <button class="action-btn" id="clearCanvas">🗑️ Clear Canvas</button>
+                        <button class="action-btn" id="saveArt">💾 Save Art</button>
+                    </div>
+                    
+                    <div class="tool-group">
+                        <h4>Drawing Templates:</h4>
+                        <button class="template-btn" data-template="unicorn">🦄 Unicorn</button>
+                        <button class="template-btn" data-template="dragon">🐉 Dragon</button>
+                        <button class="template-btn" data-template="princess">👸 Princess</button>
+                        <button class="template-btn" data-template="castle">🏰 Castle</button>
+                        <button class="template-btn" data-template="rainbow">🌈 Rainbow</button>
+                    </div>
+                </div>
+
+                <div class="canvas-area">
+                    <canvas id="drawingCanvas" width="800" height="600"></canvas>
+                    <div class="canvas-hint">✨ Click and drag to draw! ✨</div>
+                </div>
+
+                <div class="saved-art">
+                    <h3>My Artwork 🖼️</h3>
+                    <div id="savedArtGrid" class="art-grid">
+                        <p class="empty-message">You haven't saved any artwork yet!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>Keep learning and having fun! 🌟</p>
+        
+        <div style="margin: 20px 0; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <a href="#" onclick="showPrivacyPolicy(); return false;" style="color: #FFD700; text-decoration: none; font-weight: bold;">📝 Privacy Policy</a>
+            <span style="color: #FFD700;">|</span>
+            <a href="#" onclick="showTermsOfService(); return false;" style="color: #FFD700; text-decoration: none; font-weight: bold;">📜 Terms of Service</a>
+            <span style="color: #FFD700;">|</span>
+            <a href="#" onclick="showParentGate(); return false;" style="color: #FFD700; text-decoration: none; font-weight: bold;">🔒 Parent Settings</a>
+        </div>
+        
+        <div id="feedback" style="margin-top: 20px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px;">
+            <h3>📧 Beta Feedback</h3>
+            <p style="margin: 10px 0;">We'd love your thoughts! Email us at:</p>
+            <a href="mailto:feedback@kidslearningapp.com?subject=Beta Feedback" 
+               style="color: #FFD700; font-size: 1.2em; text-decoration: none; font-weight: bold;">
+                feedback@kidslearningapp.com
+            </a>
+            <p style="font-size: 0.9em; margin-top: 15px; opacity: 0.8;">
+                Beta Version 1.0 | COPPA Compliant | For Testing Only
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/achievements.js"></script>
+    <script src="js/designer.js"></script>
+    <script src="js/math-activities.js?v=20251130153500"></script>
+    <script src="js/literacy-activities.js?v=20251201161000"></script>
+    <script src="js/writing.js"></script>
+    <script src="js/art.js"></script>
+    
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js')
+                .then(reg => console.log('Service Worker registered'))
+                .catch(err => console.log('Service Worker registration failed'));
+        }
+    </script>
+</body>
+</html>
+
