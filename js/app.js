@@ -763,9 +763,13 @@ function acceptCOPPA() {
 let parentGateQuestion = {};
 
 function showParentGate() {
+    alert('Function called!'); // DEBUG
+    
     // Generate random numbers for the math question
     const num1 = Math.floor(Math.random() * 10) + 5;
     const num2 = Math.floor(Math.random() * 10) + 5;
+    
+    alert('Numbers: ' + num1 + ' and ' + num2); // DEBUG
     
     // Store the answer
     parentGateQuestion = {
@@ -774,22 +778,29 @@ function showParentGate() {
         answer: num1 + num2
     };
     
-    // Update the question text directly
+    // Show the modal FIRST
+    const modal = document.getElementById('parentGate');
+    if (modal) {
+        modal.style.display = 'flex';
+        alert('Modal shown'); // DEBUG
+    } else {
+        alert('Modal not found!'); // DEBUG
+    }
+    
+    // Update the question text directly AFTER showing modal
     const questionElement = document.getElementById('parentMathQuestion');
     if (questionElement) {
-        questionElement.textContent = num1 + ' + ' + num2 + ' = ?';
+        const question = num1 + ' + ' + num2 + ' = ?';
+        questionElement.textContent = question;
+        alert('Question set to: ' + question); // DEBUG
+    } else {
+        alert('Question element not found!'); // DEBUG
     }
     
     // Clear the input
     const answerInput = document.getElementById('parentMathAnswer');
     if (answerInput) {
         answerInput.value = '';
-    }
-    
-    // Show the modal
-    const modal = document.getElementById('parentGate');
-    if (modal) {
-        modal.style.display = 'flex';
     }
     
     // Focus the input after a brief delay
