@@ -763,6 +763,7 @@ function acceptCOPPA() {
 let parentGateQuestion = {};
 
 function showParentGate() {
+    // Generate random numbers for the math question
     const num1 = Math.floor(Math.random() * 10) + 5;
     const num2 = Math.floor(Math.random() * 10) + 5;
     parentGateQuestion = {
@@ -771,9 +772,24 @@ function showParentGate() {
         answer: num1 + num2
     };
     
-    document.getElementById('parentMathQuestion').textContent = `${num1} + ${num2} = ?`;
-    document.getElementById('parentMathAnswer').value = '';
-    document.getElementById('parentGate').style.display = 'flex';
+    // Update the question text
+    const questionElement = document.getElementById('parentMathQuestion');
+    if (questionElement) {
+        questionElement.textContent = `${num1} + ${num2} = ?`;
+    }
+    
+    // Clear any previous answer
+    const answerInput = document.getElementById('parentMathAnswer');
+    if (answerInput) {
+        answerInput.value = '';
+        answerInput.focus();
+    }
+    
+    // Show the modal
+    const modal = document.getElementById('parentGate');
+    if (modal) {
+        modal.style.display = 'flex';
+    }
 }
 
 function checkParentGate() {
