@@ -18,6 +18,9 @@ const appState = {
     }
 };
 
+// Parent Gate question storage
+let parentGateQuestion = {};
+
 // ===== Initialize App =====
 document.addEventListener('DOMContentLoaded', () => {
     checkCOPPAConsent();
