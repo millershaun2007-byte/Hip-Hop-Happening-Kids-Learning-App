@@ -797,7 +797,10 @@ function showParentGate() {
 function checkParentGate() {
     const userAnswer = parseInt(document.getElementById('parentMathAnswer').value);
     
-    if (userAnswer === parentGateQuestion.answer) {
+    // Check if answer matches either the random question or the default question (7 + 6 = 13)
+    const correctAnswer = parentGateQuestion.answer || 13;
+    
+    if (userAnswer === correctAnswer) {
         closeParentGate();
         document.getElementById('accessibilityPanel').scrollIntoView({ behavior: 'smooth' });
         document.getElementById('panelContent').classList.add('open');
