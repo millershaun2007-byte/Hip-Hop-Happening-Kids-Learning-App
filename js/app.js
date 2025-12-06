@@ -824,9 +824,41 @@ function closeParentGate() {
 }
 
 // Legal Pages Navigation
+function showAboutMe() {
+    // Hide all sections
+    document.querySelectorAll('.content-section, .info-section').forEach(section => {
+        section.classList.remove('active');
+        section.style.display = 'none';
+    });
+    
+    // Show about me
+    const aboutSection = document.getElementById('aboutMe');
+    aboutSection.style.display = 'block';
+    aboutSection.classList.add('active');
+    
+    // Scroll to top
+    window.scrollTo(0, 0);
+}
+
+function showBlog() {
+    // Hide all sections
+    document.querySelectorAll('.content-section, .info-section').forEach(section => {
+        section.classList.remove('active');
+        section.style.display = 'none';
+    });
+    
+    // Show blog
+    const blogSection = document.getElementById('blog');
+    blogSection.style.display = 'block';
+    blogSection.classList.add('active');
+    
+    // Scroll to top
+    window.scrollTo(0, 0);
+}
+
 function showPrivacyPolicy() {
     // Hide all sections
-    document.querySelectorAll('.content-section').forEach(section => {
+    document.querySelectorAll('.content-section, .info-section').forEach(section => {
         section.classList.remove('active');
         section.style.display = 'none';
     });
@@ -842,7 +874,7 @@ function showPrivacyPolicy() {
 
 function showTermsOfService() {
     // Hide all sections
-    document.querySelectorAll('.content-section').forEach(section => {
+    document.querySelectorAll('.content-section, .info-section').forEach(section => {
         section.classList.remove('active');
         section.style.display = 'none';
     });
