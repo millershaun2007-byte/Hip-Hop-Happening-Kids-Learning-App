@@ -764,6 +764,8 @@ function acceptCOPPA() {
 
 // Parent Gate Functions
 function showParentGate() {
+    console.log('showParentGate called');
+    
     // Generate random math problem
     const num1 = Math.floor(Math.random() * 10) + 5;
     const num2 = Math.floor(Math.random() * 10) + 5;
@@ -773,7 +775,16 @@ function showParentGate() {
         answer: num1 + num2
     };
     
-    document.getElementById('parentMathQuestion').textContent = `${num1} + ${num2} = ?`;
+    console.log('Generated question:', num1, '+', num2, '=', parentGateQuestion.answer);
+    
+    const questionElement = document.getElementById('parentMathQuestion');
+    console.log('Question element:', questionElement);
+    
+    if (questionElement) {
+        questionElement.textContent = `${num1} + ${num2} = ?`;
+        console.log('Question text set to:', questionElement.textContent);
+    }
+    
     document.getElementById('parentMathAnswer').value = '';
     document.getElementById('parentGate').style.display = 'flex';
     
