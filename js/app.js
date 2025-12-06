@@ -36,7 +36,11 @@ function initializeAccessibility() {
     const toggle = document.getElementById('accessibilityToggle');
     const panel = document.getElementById('panelContent');
     
-    // No click listener - handled by showParentGate() in HTML onclick
+    // Add click listener to show parent gate
+    toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        showParentGate();
+    });
 
     // Font Selection
     const fontSelect = document.getElementById('fontSelect');
