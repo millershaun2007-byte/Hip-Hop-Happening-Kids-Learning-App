@@ -761,27 +761,29 @@ function acceptCOPPA() {
 
 // Parent Gate Functions
 function showParentGate() {
-    // Show the modal
-    const modal = document.getElementById('parentGate');
-    if (modal) {
-        modal.style.display = 'flex';
-    }
+    // Generate random math problem
+    const num1 = Math.floor(Math.random() * 10) + 5;
+    const num2 = Math.floor(Math.random() * 10) + 5;
+    parentGateQuestion = {
+        num1: num1,
+        num2: num2,
+        answer: num1 + num2
+    };
     
-    // Clear and focus the input
-    const answerInput = document.getElementById('parentMathAnswer');
-    if (answerInput) {
-        answerInput.value = '';
-        setTimeout(function() {
-            answerInput.focus();
-        }, 100);
-    }
+    document.getElementById('parentMathQuestion').textContent = `${num1} + ${num2} = ?`;
+    document.getElementById('parentMathAnswer').value = '';
+    document.getElementById('parentGate').style.display = 'flex';
+    
+    // Focus on input after a short delay
+    setTimeout(() => {
+        document.getElementById('parentMathAnswer').focus();
+    }, 100);
 }
 
 function checkParentGate() {
     const userAnswer = parseInt(document.getElementById('parentMathAnswer').value);
     
-    // Answer to "What is 2 + 2?" is 4
-    if (userAnswer === 4) {
+    if (userAnswer === parentGateQuestion.answer) {
         closeParentGate();
         document.getElementById('accessibilityPanel').scrollIntoView({ behavior: 'smooth' });
         document.getElementById('panelContent').classList.add('open');
