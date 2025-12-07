@@ -23,9 +23,14 @@ let parentGateQuestion = {};
 
 // ===== Initialize App =====
 document.addEventListener('DOMContentLoaded', () => {
-    checkCOPPAConsent();
-    initializeAccessibility();
-    initializeNavigation();
+    const coppaAccepted = localStorage.getItem('coppaAccepted');
+    if (coppaAccepted === 'true') {
+        checkFirstVisit();
+    } else {
+        document.getElementById('coppaModal').style.display = 'flex';
+    }
+
+    // Initial setup
     loadSettings();
     createFloatingParticles();
     initializeBackgroundMusic();
@@ -41,6 +46,11 @@ function checkFirstVisit() {
     if (!userName) {
         // First visit, or name not set
         welcomeModal.style.display = 'flex';
+        // Play the welcome audio
+        const welcomeAudio = new Audio('audio/welcome-greeting.wav');
+        welcomeAudio.play().catch(error => {
+            console.log("Could not play audio automatically, user may need to interact more.", error);
+        });
     } else {
         // Return visit
         welcomeHeader.textContent = `✨ Welcome back, ${userName}! ✨`;
@@ -824,10 +834,9 @@ function checkCOPPAConsent() {
 }
 
 function acceptCOPPA() {
-    localStorage.setItem('coppaConsent', 'true');
-    localStorage.setItem('coppaConsentDate', new Date().toISOString());
     document.getElementById('coppaModal').style.display = 'none';
-    playSound('success');
+    localStorage.setItem('coppaAccepted', 'true');
+    checkFirstVisit(); // Check for the welcome modal after the user's first interaction
 }
 
 // Parent Gate Functions
